@@ -237,7 +237,7 @@ void MLIAPData::grow_neigharrays()
   int *ilist = list->ilist;
   int *numneigh = list->numneigh;
   int **firstneigh = list->firstneigh;
-  // double **x = atom->x;
+  x = atom->x;
   int *type = atom->type;
 
   int nneigh = 0;

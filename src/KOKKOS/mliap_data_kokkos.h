@@ -110,6 +110,7 @@ public:
     ndims_force(base.ndims_force),
     ndims_virial(base.ndims_virial),
     size_gradforce(base.size_gradforce),
+    x(base.f_device),
     f(base.f_device),
     gradforce(base.k_gradforce.d_view.data()),
     betas(base.k_betas.d_view.data()),
@@ -157,6 +158,7 @@ public:
   int ndims_virial;
   int size_gradforce;
 
+  double *x;
   //Write only
   double *f;
   double *gradforce;

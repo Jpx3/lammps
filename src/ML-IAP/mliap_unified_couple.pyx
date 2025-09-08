@@ -132,6 +132,12 @@ cdef class MLIAPDataPy:
         return np.asarray(<double[:self.ntotal, :3]> &self.data.f[0][0])
 
     @property
+    def x(self):
+        if self.data.x is NULL:
+            return None
+        return np.asarray(<double[:self.nlistatoms, :3]> &self.data.x[0][0])
+
+    @property
     def size_gradforce(self):
         return self.data.size_gradforce
 
