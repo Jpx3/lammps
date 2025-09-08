@@ -35,6 +35,7 @@ class MLIAPData : protected Pointers {
   int size_gradforce;
   int yoffset, zoffset;
   int ndims_force, ndims_virial;
+  double **x;
   double **f;
   double **gradforce;
   double **betas;          // betas for all atoms in list

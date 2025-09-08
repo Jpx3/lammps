@@ -29,7 +29,7 @@ using namespace LAMMPS_NS;
 MLIAPData::MLIAPData(LAMMPS *lmp, int gradgradflag_in, int *map_in, class MLIAPModel *model_in,
                      class MLIAPDescriptor *descriptor_in, class PairMLIAP *pairmliap_in) :
     Pointers(lmp),
-    f(nullptr), gradforce(nullptr), betas(nullptr), descriptors(nullptr), eatoms(nullptr),
+    x(nullptr), f(nullptr), gradforce(nullptr), betas(nullptr), descriptors(nullptr), eatoms(nullptr),
     gamma(nullptr), gamma_row_index(nullptr), gamma_col_index(nullptr), egradient(nullptr),
     numneighs(nullptr), iatoms(nullptr), ielems(nullptr), itypes(nullptr), pair_i(nullptr),
     jatoms(nullptr), jelems(nullptr), elems(nullptr), lmp_firstneigh(nullptr), rij(nullptr),
@@ -108,8 +108,8 @@ void MLIAPData::init()
 void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_in)
 {
   list = list_in;
+  x = atom->x;
   f = atom->f;
-  double **x = atom->x;
   int *type = atom->type;
 
   int *ilist = list->ilist;
@@ -237,7 +237,7 @@ void MLIAPData::grow_neigharrays()
   int *ilist = list->ilist;
   int *numneigh = list->numneigh;
   int **firstneigh = list->firstneigh;
-  double **x = atom->x;
+  // double **x = atom->x;
   int *type = atom->type;
 
   int nneigh = 0;
