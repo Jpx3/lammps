@@ -28,6 +28,8 @@ cdef extern from "mliap_data.h" namespace "LAMMPS_NS":
         int ndims_virial
         # -END- may not need -END-
         int size_gradforce
+        int* periodicity;       # box periodicity in each dimension
+        double **cell;          # 3x3 cell vectors
         double ** x             # atom coordinates
         # ----- write only -----
         double ** f
