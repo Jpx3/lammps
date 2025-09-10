@@ -133,6 +133,9 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
     cell[1][1] = domain->yprd;
     cell[2][2] = domain->zprd;
   }
+  for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 3; j++)
+      if (std::abs(cell[i][j]) < 1.0e-15) cell[i][j] = 0.0;
 
   int *ilist = list->ilist;
   int *numneigh = list->numneigh;
