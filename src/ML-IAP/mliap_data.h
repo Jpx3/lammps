@@ -36,6 +36,8 @@ class MLIAPData : protected Pointers {
   int yoffset, zoffset;
   int ndims_force, ndims_virial;
   double **x;
+  int* periodicity;        // box periodicity in each dimension
+  double **cell;           // 3x3 cell vectors
   double **f;
   double **gradforce;
   double **betas;          // betas for all atoms in list

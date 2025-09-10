@@ -18,6 +18,7 @@
 #include "mliap_data.h"
 
 #include "atom.h"
+#include "domain.h"
 #include "error.h"
 #include "memory.h"
 #include "mliap_descriptor.h"
@@ -29,9 +30,9 @@ using namespace LAMMPS_NS;
 MLIAPData::MLIAPData(LAMMPS *lmp, int gradgradflag_in, int *map_in, class MLIAPModel *model_in,
                      class MLIAPDescriptor *descriptor_in, class PairMLIAP *pairmliap_in) :
     Pointers(lmp),
-    x(nullptr), f(nullptr), gradforce(nullptr), betas(nullptr), descriptors(nullptr), eatoms(nullptr),
-    gamma(nullptr), gamma_row_index(nullptr), gamma_col_index(nullptr), egradient(nullptr),
-    numneighs(nullptr), iatoms(nullptr), ielems(nullptr), itypes(nullptr), pair_i(nullptr),
+    x(nullptr), f(nullptr), periodicity(nullptr), cell(nullptr), gradforce(nullptr), betas(nullptr),
+    descriptors(nullptr), eatoms(nullptr), gamma(nullptr), gamma_row_index(nullptr), gamma_col_index(nullptr),
+    egradient(nullptr), numneighs(nullptr), iatoms(nullptr), ielems(nullptr), itypes(nullptr), pair_i(nullptr),
     jatoms(nullptr), jelems(nullptr), elems(nullptr), lmp_firstneigh(nullptr), rij(nullptr),
     graddesc(nullptr), model(nullptr), descriptor(nullptr), list(nullptr)
 {
@@ -111,6 +112,27 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
   x = atom->x;
   f = atom->f;
   int *type = atom->type;
+
+  periodicity = domain->periodicity;
+  memory->destroy(cell);
+  memory->create(cell, 3, 3, "MLIAPData:cell");
+  if (domain->triclinic) {
+    if (domain->triclinic_general) {
+      for (int i = 0; i < 3; ++i) {
+        cell[i][0] = domain->avec[i];
+        cell[i][1] = domain->bvec[i];
+        cell[i][2] = domain->cvec[i];
+      }
+    } else {
+      cell[0][0] = domain->xprd; cell[0][1] = domain->xy;    cell[0][2] = domain->xz;
+      cell[1][0] = 0.0;          cell[1][1] = domain->yprd;  cell[1][2] = domain->yz;
+      cell[2][0] = 0.0;          cell[2][1] = 0.0;           cell[2][2] = domain->zprd;
+    }
+  } else {
+    cell[0][0] = domain->xprd;
+    cell[1][1] = domain->yprd;
+    cell[2][2] = domain->zprd;
+  }
 
   int *ilist = list->ilist;
   int *numneigh = list->numneigh;

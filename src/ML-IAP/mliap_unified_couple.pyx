@@ -126,6 +126,18 @@ cdef class MLIAPDataPy:
         update_pair_forces(self.data, &fij_arr[0][0])
 
     @property
+    def periodicity(self):
+        if self.data.periodicity is NULL:
+            return None
+        return np.asarray(<int[:3]> &self.data.periodicity[0])
+
+    @property
+    def cell(self):
+        if self.data.cell is NULL:
+            return None
+        return np.asarray(<double[:3, :3]> &self.data.cell[0][0])
+
+    @property
     def f(self):
         if self.data.f is NULL:
             return None
