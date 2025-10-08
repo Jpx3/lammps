@@ -30,6 +30,7 @@ class MLIAPData : protected Pointers {
   virtual void grow_neigharrays();
   double memory_usage();
 
+  int nneigh_atom_max;
   int size_array_rows, size_array_cols;
   int natoms;
   int size_gradforce;

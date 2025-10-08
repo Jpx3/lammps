@@ -242,7 +242,6 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
 /* ----------------------------------------------------------------------
    grow neighbor arrays to handle all neighbors
 ------------------------------------------------------------------------- */
-
 void MLIAPData::grow_neigharrays()
 {
 
@@ -254,7 +253,6 @@ void MLIAPData::grow_neigharrays()
     memory->grow(ielems, natomneigh, "MLIAPData:ielems");
     memory->grow(itypes, natomneigh, "MLIAPData:itypes");
     memory->grow(numneighs, natomneigh, "MLIAPData:numneighs");
-    memory->grow(lmp_firstneigh, natomneigh, nneigh_max, "MLIAPData:lmp_firstneigh");
     natomneigh_max = natomneigh;
   }
 
@@ -267,6 +265,7 @@ void MLIAPData::grow_neigharrays()
   int *type = atom->type;
 
   int nneigh = 0;
+  int max_ninside_this_step = 0;
   for (int ii = 0; ii < natomneigh; ii++) {
     const int i = ilist[ii];
 
@@ -292,12 +291,17 @@ void MLIAPData::grow_neigharrays()
       if (rsq < descriptor->cutsq[ielem][jelem]) ninside++;
     }
     nneigh += ninside;
+    if (ninside > max_ninside_this_step) max_ninside_this_step = ninside;
+  }
+
+  if (nneigh_atom_max < max_ninside_this_step) {
+    nneigh_atom_max = max_ninside_this_step;
+    memory->grow(lmp_firstneigh, natomneigh, nneigh_atom_max, "MLIAPData:lmp_firstneigh");
   }
 
   if (nneigh_max < nneigh) {
     memory->grow(pair_i, nneigh, "MLIAPData:pair_i");
     memory->grow(jatoms, nneigh, "MLIAPData:jatoms");
-    memory->grow(lmp_firstneigh, natomneigh, nneigh, "MLIAPData:lmp_firstneigh");
     memory->grow(jelems, nneigh, "MLIAPData:jelems");
     memory->grow(rij, nneigh, 3, "MLIAPData:rij");
     if (gradgradflag == 0) memory->grow(graddesc, nneigh, ndescriptors, 3, "MLIAPData:graddesc");
