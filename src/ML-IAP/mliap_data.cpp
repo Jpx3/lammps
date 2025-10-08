@@ -110,6 +110,7 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
 {
   list = list_in;
   x = atom->x;
+  double** x = atom->x;
   f = atom->f;
   int *type = atom->type;
 
@@ -262,7 +263,7 @@ void MLIAPData::grow_neigharrays()
   int *ilist = list->ilist;
   int *numneigh = list->numneigh;
   int **firstneigh = list->firstneigh;
-  x = atom->x;
+  double** x = atom->x;
   int *type = atom->type;
 
   int nneigh = 0;
