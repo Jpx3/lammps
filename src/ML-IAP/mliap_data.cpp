@@ -227,6 +227,12 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
         // printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
         printf("Accessing lmp_firstneigh[%d][%d] and firstneigh[%d][%d]\n", ii, ninside, i, jj);
         printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
+        printf("firstneigh[%d][%d] = ", i, jj);
+        if (nneigh_atom_max > i && ninside < nneigh_atom_max) {
+          printf("%d\n", firstneigh[i][jj]);
+        } else {
+          printf("OUT OF BOUNDS ACCESS\n");
+        }
         lmp_firstneigh[ii][ninside] = firstneigh[i][jj];
         ij++;
         ninside++;
