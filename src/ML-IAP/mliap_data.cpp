@@ -302,7 +302,7 @@ void MLIAPData::grow_neigharrays()
     if (ninside > max_ninside_this_step) max_ninside_this_step = ninside;
   }
 
-  if (nneigh_atom_max < max_ninside_this_step) {
+  if (nneigh_atom_max < max_ninside_this_step || lmp_firstneigh == nullptr) {
     nneigh_atom_max = max_ninside_this_step;
     memory->grow(lmp_firstneigh, natomneigh, nneigh_atom_max, "MLIAPData:lmp_firstneigh");
   }
