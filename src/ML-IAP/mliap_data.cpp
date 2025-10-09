@@ -61,6 +61,7 @@ MLIAPData::MLIAPData(LAMMPS *lmp, int gradgradflag_in, int *map_in, class MLIAPM
   size_array_rows = 1 + ndims_force * natoms + ndims_virial;
   size_array_cols = nparams * nelements + 1;
   size_gradforce = ndims_force * nparams * nelements;
+  nneigh_atom_max = 0;
 
   nlistatoms_max = 0;
   natomneigh_max = 0;
