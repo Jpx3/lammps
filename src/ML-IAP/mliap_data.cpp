@@ -212,6 +212,8 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
       const int jelem = map[jtype];
 
       if (rsq < descriptor->cutsq[ielem][jelem]) {
+        printf("DEBUG: Inside if. ij = %d\n", ij);
+
         pair_i[ij] = i;
         jatoms[ij] = j;
         jelems[ij] = jelem;
