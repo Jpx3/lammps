@@ -225,7 +225,8 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
         // Compare these against their respective allocated sizes.
         // printf("DEBUG: Accessing neighbors. ii = %d, ninside = %d, i = %d, jj = %d\n", ii, ninside, i, jj);
         // printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
-
+        printf("Accessing lmp_firstneigh[%d][%d] and firstneigh[%d][%d]\n", ii, ninside, i, jj);
+        printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
         lmp_firstneigh[ii][ninside] = firstneigh[i][jj];
         ij++;
         ninside++;
