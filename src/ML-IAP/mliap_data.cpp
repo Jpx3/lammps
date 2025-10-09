@@ -212,8 +212,7 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
       const int jelem = map[jtype];
 
       if (rsq < descriptor->cutsq[ielem][jelem]) {
-        printf("DEBUG: Inside if. ij = %d\n", ij);
-
+        // printf("DEBUG: Inside if. ij = %d\n", ij);
         pair_i[ij] = i;
         jatoms[ij] = j;
         jelems[ij] = jelem;
@@ -224,6 +223,7 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
         // Print indices for the 'lmp_firstneigh' and 'firstneigh' arrays.
         // Compare these against their respective allocated sizes.
         printf("DEBUG: Accessing neighbors. ii = %d, ninside = %d, i = %d, jj = %d\n", ii, ninside, i, jj);
+        printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
 
         lmp_firstneigh[ii][ninside] = firstneigh[i][jj];
         ij++;
