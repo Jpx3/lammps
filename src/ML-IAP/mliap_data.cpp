@@ -225,12 +225,12 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
         // Compare these against their respective allocated sizes.
         // printf("DEBUG: Accessing neighbors. ii = %d, ninside = %d, i = %d, jj = %d\n", ii, ninside, i, jj);
         // printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
-        printf("Accessing lmp_firstneigh[%d][%d] and firstneigh[%d][%d]\n", ii, ninside, i, jj);
-        printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
-        printf("firstneigh[%d][%d] = ", i, jj);
-        printf("%d\n", firstneigh[i][jj]);
+        // printf("Accessing lmp_firstneigh[%d][%d] and firstneigh[%d][%d]\n", ii, ninside, i, jj);
+        // printf("lmp_firstneigh.length=%d, firstneigh.length=%d\n", natomneigh_max, nneigh_atom_max);
+        // printf("firstneigh[%d][%d] = ", i, jj);
+        // printf("%d\n", firstneigh[i][jj]);
 
-        lmp_firstneigh[ii][ninside] = firstneigh[i][jj];
+        // lmp_firstneigh[ii][ninside] = firstneigh[i][jj];
         ij++;
         ninside++;
       }
@@ -303,12 +303,11 @@ void MLIAPData::grow_neigharrays()
       if (rsq < descriptor->cutsq[ielem][jelem]) ninside++;
     }
     nneigh += ninside;
-    if (ninside > max_ninside_this_step) max_ninside_this_step = ninside;
   }
 
-  if (nneigh_atom_max < max_ninside_this_step || lmp_firstneigh == nullptr) {
-    nneigh_atom_max = max_ninside_this_step;
-    memory->grow(lmp_firstneigh, natomneigh, nneigh_atom_max, "MLIAPData:lmp_firstneigh");
+  if (nneigh_atom_max < nneigh || lmp_firstneigh == nullptr) {
+    nneigh_atom_max = nneigh;
+    memory->grow(lmp_firstneigh, natomneigh, nneigh, "MLIAPData:lmp_firstneigh");
   }
 
   if (nneigh_max < nneigh) {
