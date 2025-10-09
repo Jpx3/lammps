@@ -218,6 +218,11 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
         rij[ij][0] = delx;
         rij[ij][1] = dely;
         rij[ij][2] = delz;
+
+        // Print indices for the 'lmp_firstneigh' and 'firstneigh' arrays.
+        // Compare these against their respective allocated sizes.
+        printf("DEBUG: Accessing neighbors. ii = %d, ninside = %d, i = %d, jj = %d\n", ii, ninside, i, jj);
+
         lmp_firstneigh[ii][ninside] = firstneigh[i][jj];
         ij++;
         ninside++;
