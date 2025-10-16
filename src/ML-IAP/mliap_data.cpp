@@ -115,6 +115,18 @@ void MLIAPData::generate_neighdata(NeighList *list_in, int eflag_in, int vflag_i
   f = atom->f;
   int *type = atom->type;
 
+  // pass charge and spin arrays if they exist
+  if (atom->q_flag && atom->q != nullptr) {
+    q = atom->q;
+  } else {
+    q = nullptr;
+  }
+  if (atom->mu_flag && atom->mu != nullptr) {
+    magmoms = atom->mu;
+  } else {
+    magmoms = nullptr;
+  }
+
   periodicity = domain->periodicity;
   memory->destroy(cell);
   memory->create(cell, 3, 3, "MLIAPData:cell");

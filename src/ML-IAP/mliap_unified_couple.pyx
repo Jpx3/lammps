@@ -152,6 +152,18 @@ cdef class MLIAPDataPy:
         return np.asarray(<double[:self.ntotal, :3]> &self.data.x[0][0])
 
     @property
+    def charge(self):
+        if self.data.q is NULL:
+            return None
+        return np.asarray(<double[:self.ntotal]> &self.data.q[0])
+
+    @property
+    def magmoms(self):
+        if self.data.magmoms is NULL:
+            return None
+        return np.asarray(<double[:self.ntotal, :3]> &self.data.magmoms[0][0])
+
+    @property
     def size_gradforce(self):
         return self.data.size_gradforce
 

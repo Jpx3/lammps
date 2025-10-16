@@ -43,6 +43,8 @@ class MLIAPData : protected Pointers {
   double **gradforce;
   double **betas;          // betas for all atoms in list
   double **descriptors;    // descriptors for all atoms in list
+  double **magmoms;        // magnetic moments for all atoms in list
+  double *q;               // charges for all atoms in list
   double *eatoms;          // energies for all atoms in list
   double energy;           // energy
   int ndescriptors;        // number of descriptors
