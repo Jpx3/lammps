@@ -31,6 +31,8 @@ cdef extern from "mliap_data.h" namespace "LAMMPS_NS":
         int* periodicity;       # box periodicity in each dimension
         double **cell;          # 3x3 cell vectors
         double ** x             # atom coordinates
+        double * q              # atom charges
+        double ** magmoms       # atom magnetic moments
         # ----- write only -----
         double ** f
         double ** gradforce
